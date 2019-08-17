@@ -62,9 +62,6 @@ ln -sf /dev/block/* /dev/
 ui_print "Extracting partition table..."
 extract_partition_table
 
-ui_print "Unmounting /$INSTALL_PARTITION..."
-umount_install_partition
-
 ui_print "Creating partition table on $INSTALL_DEVICE..."
 # parted returns nonzero even when command executed successfully
 partition_install_device || :

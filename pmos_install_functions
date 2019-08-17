@@ -101,12 +101,3 @@ set_subpartitions() {
 	export ROOT_PARTITION
 	ROOT_PARTITION=/dev/mapper/"$(basename "$INSTALL_DEVICE")"p2
 }
-
-umount_install_partition() {
-	if [ -n "$(awk '$1 == install_part' install_part="$INSTALL_DEVICE" /proc/mounts)" ]
-	then
-		umount "$INSTALL_DEVICE"
-	else
-		echo "$INSTALL_DEVICE is not mounted, continuing..."
-	fi
-}

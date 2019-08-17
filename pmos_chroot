@@ -51,7 +51,18 @@ done
 # Copy Mediatek /emmc@partitionname symlinks to the chroot
 cp -d /emmc@* "$CHROOT" || true
 
-# Set permissions and start the installation script
+# Set permissions
 chmod 755 "$CHROOT"/bin/*
 chmod 755 "$CHROOT"/lib/*
+
+# Create busybox symlinks
+chroot "$CHROOT" /bin/busybox --install /bin
+
+# Umount install partition (pmaports#1654: outside of chroot)
+INSTALL_PART="$(chroot "$CHROOT" /bin/pmos_install_part)"
+if [ -n "$INSTALL_PART" ]; then
+	umount "$INSTALL_PART"
+fi
+
+# Start the installation script
 chroot "$CHROOT" /bin/pmos_install
