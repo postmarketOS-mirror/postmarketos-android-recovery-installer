@@ -8,7 +8,6 @@ stages:
 
 clang-format-static:
   stage: linter
-  allow_failure: true
   before_script:
     - apk -q add clang git
   script:
