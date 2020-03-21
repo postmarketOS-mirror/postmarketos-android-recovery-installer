@@ -1,7 +1,7 @@
 ---
 
 # global settings
-image: alpine:3.10
+image: alpine:latest
 stages:
   - linter
   - build
@@ -13,6 +13,13 @@ clang-format-static:
     - apk -q add clang git
   script:
     - .gitlab-ci/static_clang-format.sh
+
+shellcheck:
+  stage: linter
+  before_script:
+    - apk -q add shellcheck git
+  script:
+    - .gitlab-ci/shellcheck.sh
 
 build:
   stage: build
