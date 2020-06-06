@@ -9,8 +9,7 @@ unzip -o "$ZIP" chroot/* -d /tmp/postmarketos
 
 # shellcheck source=/dev/null
 . "$CHROOT"/install_options
-if [ "$FDE" = 'true' ]
-then
+if [ "$FDE" = 'true' ]; then
 	# Install password setting script
 	{
 		echo '#!/sbin/sh'
@@ -20,8 +19,7 @@ then
 fi
 
 # Mount the logfile and pmos.zip so we can access it inside the chroot
-for file in "pmos.log" "pmos.zip"
-do
+for file in "pmos.log" "pmos.zip"; do
 	{ umount "$CHROOT"/"$file" ; rm "$CHROOT"/"$file" ; } || :
 	touch "$CHROOT"/"$file"
 done
@@ -42,8 +40,7 @@ if ! cp /etc/$fstab_recovery "$CHROOT"/$fstab_recovery; then
 fi
 
 # Mount necessary filesystems for the chroot
-for mountpoint in "/dev" "/proc" "/sys"
-do
+for mountpoint in "/dev" "/proc" "/sys"; do
 	mkdir -p "$CHROOT""$mountpoint"
 	mount --bind "$mountpoint" "$CHROOT""$mountpoint"
 done

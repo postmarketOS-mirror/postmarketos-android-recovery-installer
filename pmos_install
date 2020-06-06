@@ -69,8 +69,7 @@ partition_install_device || :
 ui_print "Creating mountpoint..."
 mkdir -p /mnt/pmOS
 
-if [ "$FDE" = "true" ]
-then
+if [ "$FDE" = "true" ]; then
 	ui_print "Generating temporary keyfile with random data..."
 	dd bs=512 count=4 if=/dev/urandom of=/lukskey
 
@@ -118,10 +117,8 @@ ui_print "Configuring apk..."
 sed -i '/\/mnt\/pmbootstrap-packages/d' /mnt/pmOS/etc/apk/repositories
 
 # Flash kernel
-if [ "$FLASH_KERNEL" = "true" ]
-then
-	if [ "$ISOREC" = "true" ]
-	then
+if [ "$FLASH_KERNEL" = "true" ]; then
+	if [ "$ISOREC" = "true" ]; then
 		ui_print "Flashing kernel..."
 		dd if=/mnt/pmOS/boot/vmlinuz-"$FLAVOR" of="$KERNEL_PARTITION"
 
@@ -136,8 +133,7 @@ fi
 
 ui_print "Installation done."
 
-if [ "$FDE" = "true" ]
-then
+if [ "$FDE" = "true" ]; then
 	ui_print "========================================="
 	ui_print "Do not forget to add a password to the LUKS partition!"
 	ui_print "Run the command: pmos_setpw from the terminal/adb shell!"

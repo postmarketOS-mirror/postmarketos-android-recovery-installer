@@ -59,16 +59,14 @@ extract_partition_table() {
 		fi
 	fi
 
-	if [ -n "$dev" ]
-	then
+	if [ -n "$dev" ]; then
 		echo "install device found at $dev"
 		export INSTALL_DEVICE=$dev
 	else
 		echo "Couldn't find $INSTALL_PARTITION partition."
 		return 1
 	fi
-	if [ "$ISOREC" = "true" ]
-	then
+	if [ "$ISOREC" = "true" ]; then
 		export KERNEL_PARTITION
 		KERNEL_PARTITION=$(findfs PARTLABEL="$KERNEL_PARTLABEL")
 		export INITFS_PARTITION
@@ -76,8 +74,7 @@ extract_partition_table() {
 	else
 		dev=$(findfs PARTLABEL="boot") || \
 			dev=$(readlink -fn "$(get_fstab_device "$fstab_recovery" boot)")
-		if [ -n "$dev" ]
-		then
+		if [ -n "$dev" ]; then
 			echo "boot partition found at $dev"
 			export BOOT_PARTITION=$dev
 		else
@@ -96,8 +93,7 @@ partition_install_device() {
 		parted -s "$INSTALL_DEVICE" "$command"
 	done
 	partprobe
-	if [ "$INSTALL_PARTITION" != "external_sd" ]
-	then
+	if [ "$INSTALL_PARTITION" != "external_sd" ]; then
 		kpartx -afs "$INSTALL_DEVICE"
 	fi
 	set_subpartitions
