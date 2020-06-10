@@ -13,7 +13,7 @@ test_path() {
 			continue
 		fi
 		case "$file" in
-			LICENSE|*.yml|*.c)
+			LICENSE|*.yml|*.c|*.md)
 				echo "$file: not a shell script"
 				;;
 			*)
