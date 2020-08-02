@@ -52,11 +52,9 @@ extract_partition_table() {
 		# We need to resolve symlinks, to make set_subpartitions() work.
 		dev=$(readlink -fn "$(get_fstab_device "$fstab_recovery" "$INSTALL_PARTITION")")
 	else
-		dev=$(findfs PARTLABEL="$SYSTEM_PARTLABEL")
-		if [ -z "$dev" ]; then
-			# If we can't find it by partlabel, we can fall back to just system.
+		# If we can't find it by partlabel, we can fall back to just system.
+		dev=$(findfs PARTLABEL="$SYSTEM_PARTLABEL") || \
 			dev=$(readlink -fn "$(get_fstab_device "$fstab_recovery" "system")")
-		fi
 	fi
 
 	if [ -n "$dev" ]; then
