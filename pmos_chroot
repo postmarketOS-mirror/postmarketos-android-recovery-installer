@@ -4,8 +4,9 @@ set -ex
 
 export CHROOT='/tmp/postmarketos/chroot'
 
-# Extract chroot
-unzip -o "$ZIP" chroot/* -d /tmp/postmarketos
+# Extract chroot (using premade list instead of wildcard for better compability)
+# shellcheck disable=SC2046
+unzip -o "$ZIP" $(cat /tmp/postmarketos/chroot_contents) -d /tmp/postmarketos
 
 # shellcheck source=/dev/null
 . "$CHROOT"/install_options

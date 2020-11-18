@@ -54,11 +54,12 @@ BINARIES="/bin/busybox /bin/umount /sbin/cryptsetup /sbin/findfs /sbin/kpartx /s
 	/usr/sbin/parted /usr/sbin/partprobe /bin/tar"
 # shellcheck disable=SC2086
 LIBRARIES=$(lddtree -l $BINARIES | awk '/lib/ {print}' | sort -u)
-ZIP_CONTENTS="chroot META-INF disable-warning pmos_chroot rootfs.tar.gz"
+ZIP_CONTENTS="chroot chroot_contents META-INF disable-warning pmos_chroot rootfs.tar.gz"
 ZIP_FILE="pmos-$DEVICE.zip"
 
 copy_files "$BINARIES" chroot/bin/
 copy_files "$LIBRARIES" chroot/lib/
+find chroot/* -type f > chroot_contents
 check_whether_exists rootfs.tar.gz
 remove_existing_zip "$ZIP_FILE"
 # zip command can't take a list of files wrapped in quotes

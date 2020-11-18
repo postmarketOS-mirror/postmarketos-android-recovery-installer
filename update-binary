@@ -32,6 +32,7 @@ mkdir -p /tmp/postmarketos/
 
 # Extract and start the installer script
 unzip -o "$ZIP" "pmos_chroot" -d /tmp/postmarketos/
+unzip -o "$ZIP" "chroot_contents" -d /tmp/postmarketos/
 chmod 755 /tmp/postmarketos/pmos_chroot
 /tmp/postmarketos/pmos_chroot || { fail_info ; exit 1 ; }
 
